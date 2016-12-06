@@ -8,13 +8,6 @@ import * as logActions from '../actions/LogActions';
 import * as connActions from '../actions/ConnActions';
 import * as historyActions from '../actions/historyActions';
 
-import CallButton from '../components/CallButton'
-import IncomingCall from '../components/IncomingCall/IncomingCall'
-
-// import IncomingCall from '../components/IncomingCall/IncomingCall'
-// import TextChat from '../components/TextChat'
-// import MsgList from '../components/MsgList'
-
 class MainPage extends Component {
 
 	constructor(props) {
@@ -83,25 +76,6 @@ class MainPage extends Component {
 		});
 	}
 
-	// startMediaStream = (audioEnable=false, videoEnable=true) => {
-	// 	navigator.webkitGetUserMedia(
-	// 		{
-	// 			audio: audioEnable,
-	// 			video: videoEnable
-	// 		},
-
-	// 		(stream) => {
-	// 			this.props.connActions.setLocalStream(stream);
-	// 			this.props.connActions.setMyVideoSrc(window.URL.createObjectURL(stream));
-	// 		},
-
-	// 		(err) => {
-	// 			this.logMsg('failed to access local camera');
-	// 			this.logMsg(err.message);
-	// 		}
-	// 	);
-	// }
-
 	startCall = () => {
 		if (!this.props.conn.peerConn) {
 			this.logMsg('please connect first');
@@ -136,10 +110,8 @@ class MainPage extends Component {
 	}
 
 	render() {
-		const { user, conn, history, log } = this.props;
 
 		return (
-
 			<div>
 				{this.props.children}
 			</div>

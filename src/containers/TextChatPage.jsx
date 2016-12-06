@@ -14,7 +14,6 @@ import * as historyActions from '../actions/historyActions';
 import MsgList from '../components/MsgList'
 import TextChat from '../components/TextChat'
 import CallButton from '../components/CallButton'
-// import VideoChat from '../components/VideoChat'
 
 class TextChatPage extends Component {
 
@@ -34,7 +33,6 @@ class TextChatPage extends Component {
 		});
 	}
 
-	handleToggle = () => this.setState({open: !this.state.open});
 	handleClose = () => this.setState({open: false});
 
 	render() {

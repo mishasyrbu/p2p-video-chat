@@ -25,8 +25,6 @@ export default class CallButton extends Component {
 
 			(stream) => {
 				this.props.setLocalStream(stream);
-				console.log(stream)
-				console.log(JSON.stringify(stream))
 				this.props.setMyVideoSrc(window.URL.createObjectURL(stream));
 			},
 

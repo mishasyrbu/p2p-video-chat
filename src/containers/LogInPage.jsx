@@ -9,15 +9,15 @@ import Peer from 'peerjs'
 import * as userActions from '../actions/UserActions';
 import * as logActions from '../actions/LogActions';
 import * as connActions from '../actions/ConnActions';
-import * as historyActions from '../actions/historyActions';
 
 class LogInPage extends Component {
 
-	// constructor() {
+	constructor(props) {
+		super(props);
 
-	// 	this.logMsg = this.props.logActions.addLog;
-	// 	this.logMsg('App started!');
-	// }
+		this.logMsg = this.props.logActions.addLog;
+		this.logMsg('App started!');
+	}
 
 	handleNameChange = (event) => {
 		this.props.userActions.setUserName(event.target.value.trim());
@@ -39,7 +39,13 @@ class LogInPage extends Component {
 		const { user, conn } = this.props;
 
 		return (
-			<form onSubmit={this.handleSubmit} style={{textAlign: 'center', height: '400px'}}>
+			<form onSubmit={this.handleSubmit} style={{
+				position: 'absolute',
+				top: '20%',
+				left: '50%',
+				transform: 'translate(-50%, -20%)',
+				textAlign: 'center'
+			}}>
 				<br/>
 				<Avatar
 					size={100}
@@ -72,8 +78,7 @@ function mapStateToProps(state) {
 	return {
 		user: state.user,
 		log: state.log,
-		conn: state.conn,
-		history: state.history
+		conn: state.conn
 	}
 }
 
@@ -81,8 +86,7 @@ function mapDispatchProps(dispatch) {
 	return {
 		userActions: bindActionCreators(userActions, dispatch),
 		logActions: bindActionCreators(logActions, dispatch),
-		connActions: bindActionCreators(connActions, dispatch),
-		historyActions: bindActionCreators(historyActions, dispatch)
+		connActions: bindActionCreators(connActions, dispatch)
 	}
 }
 
