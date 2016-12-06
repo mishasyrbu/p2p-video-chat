@@ -9,7 +9,7 @@ export default class MsgList extends Component {
 
 	render() {
 		return (
-			<div style={{overflow: 'auto', height: '200px'}}>
+			<div style={{overflow: 'auto', height: '80%'}}>
 				<ul>
 					{
 						this.props.history.conversation.map(function(value, key) {

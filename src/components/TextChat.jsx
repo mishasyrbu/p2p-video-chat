@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import { Button, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { TextField, IconButton, Paper } from 'material-ui'
+import ContentSend from 'material-ui/svg-icons/content/send'
 
 export default class TextChat extends Component {
 
@@ -30,14 +31,24 @@ export default class TextChat extends Component {
 
 	render() {
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<FormGroup>
-					<FormControl type="text" placeholder="Msg" value={this.state.msgText} onChange={this.handleMsgChange} />
-				</FormGroup>
-				<Button type="submit">
-					Send msg
-				</Button>
-			</Form>
+			<form onSubmit={this.handleSubmit}>
+				<Paper zDepth={1} style={{textAlign: 'center', position: 'fixed', width: '100%', bottom: 0}}>
+					<TextField
+						hintText="Type a message..."
+						multiLine={true}
+						rows={1}
+						rowsMax={2}
+						value={this.state.msgText} 
+						onChange={this.handleMsgChange}
+						/>
+					<IconButton
+						type="submit"
+						disabled={this.state.msgText.length===0}
+						>
+						<ContentSend />
+					</IconButton>
+				</Paper>
+			</form>
 		);
 	}
 }

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Button, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { TextField } from 'material-ui'
 
 export default class RecipientInput extends Component {
 
@@ -16,10 +16,11 @@ export default class RecipientInput extends Component {
 		const { conn } = this.props;
 
 		return (
-			<div>
-				<ControlLabel>Connect with:</ControlLabel>
-				<FormControl type="text" placeholder="Recipient name" value={conn.recipientName} onChange={this.handleInputChange} />
-			</div>
+			<TextField
+				hintText="Recipient name"
+				value={conn.recipientName} 
+				onChange={this.handleInputChange}
+			/>
 		);
 	}
 }

@@ -1,9 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { Button, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-import Peer from 'peerjs';
+
+import { TextField, RaisedButton, Avatar } from 'material-ui'
+import Peer from 'peerjs'
 
 import * as userActions from '../actions/UserActions';
 import * as logActions from '../actions/LogActions';
@@ -37,19 +38,31 @@ class LogInPage extends Component {
 		const { user, conn } = this.props;
 
 		return (
-			<Form onSubmit={this.handleSubmit}>
-				<FormGroup>
-					<ControlLabel>Connect as:</ControlLabel>
-					<FormControl type="text" placeholder="Your name" value={user.name} onChange={this.handleNameChange} />
-				</FormGroup>
-				<Button type="submit" disabled={conn.peerConn!=null}>
-					Connect
-				</Button>
-				&nbsp;
-				<Button type="button" disabled={conn.peerConn==null} onClick={this.props.closePeerConn}>
-					Disconnect
-				</Button>
-			</Form>
+			<form onSubmit={this.handleSubmit} style={{textAlign: 'center', height: '400px'}}>
+				<br/>
+				<Avatar
+					size={100}
+					>
+					P2P
+					chat
+				</Avatar>
+				<br/>
+				<br/>
+				<TextField
+					hintText="Your name"
+					errorText={user.name.length===0?'This field is required':''}
+					value={user.name} 
+					onChange={this.handleNameChange}
+				/>
+				<br/>
+				<br/>
+				<RaisedButton 
+					label="Connect" 
+					type="submit"
+					disabled={user.name.length===0}
+					style={{}}
+					/>
+			</form>
 		);
 	}
 }

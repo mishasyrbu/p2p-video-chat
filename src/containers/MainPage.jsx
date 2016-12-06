@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory, Link } from 'react-router'
-import { Button, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
 import * as userActions from '../actions/UserActions';
 import * as logActions from '../actions/LogActions';
@@ -139,15 +138,8 @@ class MainPage extends Component {
 		const { user, conn, history, log } = this.props;
 
 		return (
+
 			<div>
-				<IncomingCall 
-					conn={this.props.conn}
-					answerForIncomingCall={this.props.connActions.answerForIncomingCall}
-					setLocalStream={this.props.connActions.setLocalStream}
-					setMyVideoSrc={this.props.connActions.setMyVideoSrc}
-					/>
-				<Link to='/main/users_list'>users_list</Link>
-				<Link to='/main/text_chat'>text_chat</Link>
 				{this.props.children}
 			</div>
 		);

@@ -17,6 +17,7 @@
   "homepage": "https://github.com/alicoding/react-webpack-babel#readme",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.3",
+    "material-ui": "^0.16.4",
     "node-sass": "^3.10.1",
     "peerjs": "^0.3.14",
     "react": "15.3.2",
@@ -26,6 +27,7 @@
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.7",
+    "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
     "sass-loader": "^4.0.2"
   },

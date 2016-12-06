@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 
-import { Button } from 'react-bootstrap';
+import { IconButton } from 'material-ui'
+import CommunicationPhone from 'material-ui/svg-icons/communication/phone'
 
 export default class CallButton extends Component {
 
@@ -36,13 +37,12 @@ export default class CallButton extends Component {
 		const { conn } = this.props;
 
 		return (
-			<Button 
-				type="button" 
+			<IconButton 
 				onClick={this.handleButtonClick} 
 				disabled={!conn.recipientName}
 				>
-				Call
-			</Button>
+				<CommunicationPhone />
+			</IconButton>
 		);
 	}
 }
