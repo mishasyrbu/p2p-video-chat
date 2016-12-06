@@ -74,7 +74,6 @@ class TextChatPage extends Component {
 					sendData={this.sendData}
 					addConversationToHistory={this.props.historyActions.addConversationToHistory}
 					/>
-				{/*<VideoChat conn={conn} />*/}
 			</div>
 		);
 	}

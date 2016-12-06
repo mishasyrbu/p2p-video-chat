@@ -26,7 +26,8 @@ class LogInPage extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 		this.connectToServer();
-		browserHistory.push('/main/users_list');
+		//if ( this.props.conn.peerConn !== null )
+			browserHistory.push('/main/users_list');
 	}
 
 	connectToServer = () => {

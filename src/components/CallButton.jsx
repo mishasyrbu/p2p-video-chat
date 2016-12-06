@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 
 import { IconButton } from 'material-ui'
 import CommunicationPhone from 'material-ui/svg-icons/communication/phone'
+import { browserHistory } from 'react-router'
 
 export default class CallButton extends Component {
 
@@ -12,6 +13,7 @@ export default class CallButton extends Component {
 	handleButtonClick = () => {
 		this.startMediaStream();
 		this.props.sendData('lets-start');
+		browserHistory.push('/main/call');
 	}
 
 	startMediaStream = (audioEnable=false, videoEnable=true) => {
@@ -23,6 +25,8 @@ export default class CallButton extends Component {
 
 			(stream) => {
 				this.props.setLocalStream(stream);
+				console.log(stream)
+				console.log(JSON.stringify(stream))
 				this.props.setMyVideoSrc(window.URL.createObjectURL(stream));
 			},
 

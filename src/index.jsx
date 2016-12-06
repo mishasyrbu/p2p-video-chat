@@ -11,6 +11,8 @@ import LogInPage from './containers/LogInPage';
 import MainPage from './containers/MainPage';
 import TextChatPage from './containers/TextChatPage';
 import UsersListPage from './containers/UsersListPage'
+import CallPage from './containers/CallPage'
+import IncomingCallPage from './containers/IncomingCallPage'
 
 import configureStore from './store/configureStore'
 
@@ -23,11 +25,14 @@ render(
       <Router history={routerHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={LogInPage}></IndexRoute>
-          <Route path="text_chat" component={TextChatPage}></Route>
+          <Route path="incoming_call" component={IncomingCallPage}></Route>
+          <Route path="call" component={CallPage}></Route>
           <Route path="login" component={LogInPage}></Route>
           <Route path="main" component={MainPage}>
             <Route path="users_list" component={UsersListPage}></Route>
             <Route path="text_chat" component={TextChatPage}></Route>
+            <Route path="call" component={CallPage}></Route>
+            <Route path="incoming_call" component={IncomingCallPage}></Route>
           </Route>
         </Route>
       </Router>
@@ -48,6 +53,8 @@ if (module.hot) {
               <Route path="main" component={MainPage}>
                 <Route path="users_list" component={UsersListPage}></Route>
                 <Route path="text_chat" component={TextChatPage}></Route>
+                <Route path="call" component={CallPage}></Route>
+                <Route path="incoming_call" component={IncomingCallPage}></Route>
               </Route>
             </Route>
           </Router>

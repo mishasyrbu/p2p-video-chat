@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { browserHistory, Link } from 'react-router'
+import { browserHistory } from 'react-router'
 
 import * as userActions from '../actions/UserActions';
 import * as logActions from '../actions/LogActions';
@@ -63,6 +63,7 @@ class MainPage extends Component {
 			this.props.connActions.setRecipientName(conn.peer);
 			if ( data == 'lets-start' ) {
 				this.props.connActions.initializeIncomingCall(conn.peer);
+				browserHistory.push('/main/incoming_call');
 			}
 
 			if ( data == 'ok' ) {
@@ -82,24 +83,24 @@ class MainPage extends Component {
 		});
 	}
 
-	startMediaStream = (audioEnable=false, videoEnable=true) => {
-		navigator.webkitGetUserMedia(
-			{
-				audio: audioEnable,
-				video: videoEnable
-			},
+	// startMediaStream = (audioEnable=false, videoEnable=true) => {
+	// 	navigator.webkitGetUserMedia(
+	// 		{
+	// 			audio: audioEnable,
+	// 			video: videoEnable
+	// 		},
 
-			(stream) => {
-				this.props.connActions.setLocalStream(stream);
-				this.props.connActions.setMyVideoSrc(window.URL.createObjectURL(stream));
-			},
+	// 		(stream) => {
+	// 			this.props.connActions.setLocalStream(stream);
+	// 			this.props.connActions.setMyVideoSrc(window.URL.createObjectURL(stream));
+	// 		},
 
-			(err) => {
-				this.logMsg('failed to access local camera');
-				this.logMsg(err.message);
-			}
-		);
-	}
+	// 		(err) => {
+	// 			this.logMsg('failed to access local camera');
+	// 			this.logMsg(err.message);
+	// 		}
+	// 	);
+	// }
 
 	startCall = () => {
 		if (!this.props.conn.peerConn) {
