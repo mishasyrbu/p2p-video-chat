@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
 import App from './containers/App';
@@ -24,6 +24,8 @@ render(
     <Provider store={store}>
       <Router history={routerHistory}>
         <Route path="/" component={App}>
+          <Redirect from="/android_asset/www/index.html" to="login" />
+          <Redirect from="index.html" to="login" />
           <IndexRoute component={LogInPage}></IndexRoute>
           <Route path="incoming_call" component={IncomingCallPage}></Route>
           <Route path="call" component={CallPage}></Route>
@@ -48,6 +50,7 @@ if (module.hot) {
 	      <Provider store={store}>
           <Router history={routerHistory}>
             <Route path="/" component={App}>
+              <Redirect from="/android_asset/www/index.html" to="login" />
               <IndexRoute component={LogInPage}></IndexRoute>
               <Route path="login" component={LogInPage}></Route>
               <Route path="main" component={MainPage}>

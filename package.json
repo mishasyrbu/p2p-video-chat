@@ -26,7 +26,8 @@
     "react-router-redux": "^4.0.7",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",
-    "sass-loader": "^4.0.2"
+    "sass-loader": "^4.0.2",
+    "webpack-cordova-plugin": "^0.1.6"
   },
   "devDependencies": {
     "babel-core": "6.17.0",
@@ -47,6 +48,7 @@
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
     "webpack-cleanup-plugin": "^0.4.1",
+    "webpack-cordova-plugin": "^0.1.6",
     "webpack-dev-server": "1.16.2"
   }
 }

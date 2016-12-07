@@ -28,3 +28,7 @@ node_modules
 
 # Ignore build files
 public
+
+plugins
+platforms
+www

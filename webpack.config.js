@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CordovaPlugin = require('webpack-cordova-plugin');
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8888";
@@ -43,7 +44,7 @@ module.exports = {
 		'react-hot-loader/patch',
 		'./src/index.jsx' // your app's entry point
 	],
-	devtool: process.env.WEBPACK_DEVTOOL || 'cheap-module-source-map',
+	devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
 	output: {
 		path: path.join(__dirname, 'public'),
 		filename: 'bundle.js'
@@ -73,5 +74,11 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './src/index.html'
 		}),
+		new CordovaPlugin({
+			config: 'config.xml',  // Location of Cordova' config.xml (will be created if not found)
+			src: 'index.html',     // Set entry-point of cordova in config.xml
+			platform: 'android',	 // Set `webpack-dev-server` to correct `contentBase` to use Cordova plugins.
+			version: true,         // Set config.xml' version. (true = use version from package.json)
+		})
 	]
 };
