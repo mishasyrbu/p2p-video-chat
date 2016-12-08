@@ -3,13 +3,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
-import { IconButton } from 'material-ui'
-import CallEnd from 'material-ui/svg-icons/communication/call-end'
+import * as userActions from '../actions/UserActions'
+import * as logActions from '../actions/LogActions'
+import * as connActions from '../actions/ConnActions'
+import * as historyActions from '../actions/historyActions'
 
-import * as userActions from '../actions/UserActions';
-import * as logActions from '../actions/LogActions';
-import * as connActions from '../actions/ConnActions';
-import * as historyActions from '../actions/historyActions';
+import CallComponent from '../components/Call/CallComponent'
 
 class CallPage extends Component {
 
@@ -32,74 +31,12 @@ class CallPage extends Component {
 	}
 
 	render() {
-		const { user, conn, history } = this.props;
 
 		return (
-			<div style={{position: 'fixed', width: '100%', height: '100%'}}>
-				<video 
-					src={conn.myVideoSrc} 
-					autoPlay
-					style={{
-						height: '100%',
-						width: 'auto',
-						top: '50%',
-						position: 'absolute',
-						left: '50%',
-						transform: 'translate(-50%,-50%)'
-					}}
-					>
-				</video>
-				<video
-					src={conn.recipientVideoSrc}
-					autoPlay
-					style={{
-						position: 'absolute',
-						width: 'auto',
-						height: '15%',
-						bottom: '20%'
-					}}
-					>
-				</video>
-				<IconButton
-					onClick={this.endCall}
-					iconStyle={{
-						position: 'absolute', 
-						width: '100%', 
-						height: '100%',
-						top: '50%',
-						left: '50%',
-						transform: 'translate(-50%,-50%)',
-						color: 'white'
-					}}
-					style={{
-						textAlign: 'center', 
-						position: 'fixed', 
-						width: '100%',
-						height: '10%',
-						bottom: 0,
-						opacity: 0.6,
-					    backgroundColor: 'red'
-					}}
-					>
-					<CallEnd />
-				</IconButton>
-				<div
-					style={{
-						textAlign: 'center', 
-						position: 'fixed', 
-						width: '100%',
-						height: '15%',
-						top: 0,
-						opacity: 0.2,
-					    backgroundColor: '#050505',
-					    color: 'white',
-					    fontSize: '200%',
-					    fontFamily: 'sans-serif'
-					}}
-					>
-					<p>{conn.recipientName}</p>
-				</div>
-			</div>
+			<CallComponent 
+				conn={this.props.conn}
+				endCall={this.endCall}
+				/>
 		);
 	}
 }
@@ -107,9 +44,7 @@ class CallPage extends Component {
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		log: state.log,
-		conn: state.conn,
-		history: state.history
+		conn: state.conn
 	}
 }
 

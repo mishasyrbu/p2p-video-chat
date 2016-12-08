@@ -5,6 +5,9 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, Route, Redirect, IndexRoute, browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+
+import styles from './index.scss'
 
 import App from './containers/App';
 import LogInPage from './containers/LogInPage';
@@ -18,6 +21,8 @@ import configureStore from './store/configureStore'
 
 const store = configureStore();
 const routerHistory = syncHistoryWithStore(browserHistory, store);
+
+injectTapEventPlugin();;
 
 render(
   <AppContainer>

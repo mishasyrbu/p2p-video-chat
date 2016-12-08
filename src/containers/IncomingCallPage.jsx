@@ -51,6 +51,7 @@ class IncomingCallPage extends Component {
 		this.startMediaStream();
 		this.sendData('ok');
 		this.props.connActions.answerForIncomingCall(true);
+		console.log(browserHistory)
 		browserHistory.push('/main/call');
 	}
 

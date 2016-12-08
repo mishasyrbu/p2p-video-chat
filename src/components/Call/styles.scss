@@ -1,0 +1,55 @@
+.callView {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+}
+
+.recipientVideo {
+	height: 100%;
+	width: auto;
+	top: 50%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+
+.myVideoSrc {
+	position: absolute;
+	width: auto;
+	height: 15%;
+	bottom: 20%;
+	margin-left: 5%;
+}
+
+.callInfo {
+	text-align: center; 
+	position: fixed;
+	width: 100%;
+	height: 15%;
+	top: 0;
+	opacity: 0.2;
+    background-color: #050505;
+    color: white;
+    font-size: 200%;
+    font-family: sans-serif;
+}
+
+.callEndButton {
+	text-align: center;
+	position: fixed !important;
+	width: 100% !important;
+	height: 10% !important;
+	bottom: 0;
+	opacity: 0.6;
+	background-color: red !important;
+}
+
+// .callEndIcon {
+// 	position: absolute;
+// 	width: 100%;
+// 	height: 100%;
+// 	top: 50%;
+// 	left: 50%;
+// 	transform: translate(-50%,-50%);
+// 	color: white;
+// }
