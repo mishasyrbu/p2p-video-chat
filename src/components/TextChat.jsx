@@ -17,15 +17,13 @@ export default class TextChat extends Component {
 	handleSubmit = (event) => {
 		event.preventDefault();
 
-		this.props.sendData(this.state.msgText);
+		this.props.sendData(
+			{
+				type: 'message',
+				text: this.state.msgText
+			}
+		);
 
-		this.props.addConversationToHistory({
-			with: this.props.conn.recipientName,
-			type: 'msg',
-			from: this.props.user.name,
-			text: this.state.msgText,
-			datetime: new Date()
-		});
 		this.setState({ msgText: '' });
 	}
 

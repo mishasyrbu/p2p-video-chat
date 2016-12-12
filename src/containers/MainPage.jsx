@@ -3,10 +3,12 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
-import * as userActions from '../actions/UserActions';
-import * as logActions from '../actions/LogActions';
-import * as connActions from '../actions/ConnActions';
-import * as historyActions from '../actions/historyActions';
+import * as userActions from '../actions/UserActions'
+import * as logActions from '../actions/LogActions'
+import * as connActions from '../actions/ConnActions'
+import * as historyActions from '../actions/historyActions'
+
+import { stopStream } from '../util'
 
 class MainPage extends Component {
 
@@ -54,25 +56,37 @@ class MainPage extends Component {
 	peerOnConnection = (conn) => {
 		conn.on('data', (data) => {
 			this.props.connActions.setRecipientName(conn.peer);
-			if ( data == 'lets-start' ) {
-				this.props.connActions.initializeIncomingCall(conn.peer);
-				browserHistory.push('/main/incoming_call');
-			}
-
-			if ( data == 'ok' ) {
-				console.log('data == ok', this.props.conn.peerConn);
-				this.startCall();
+			if ( data.type === 'call' ) {
+				switch (data.text) {
+					case 'initialize-call': {
+						this.props.connActions.initializeIncomingCall(conn.peer);
+						browserHistory.push('/main/incoming_call');
+						break;
+					}
+					case 'answer': {
+						this.startCall();
+						break;
+					}
+					case 'reject': {
+						stopStream(this.props.conn.localStream);
+						browserHistory.goBack();
+						break;
+					}
+					case 'end-call': {
+						stopStream(this.props.conn.localStream);
+						browserHistory.goBack();
+						break;
+					}
+				}
 			}
 
 			this.props.historyActions.addConversationToHistory({
 				with: conn.peer,
-				type: 'msg',
+				type: data.type,
 				from: conn.peer,
-				text: data,
+				text: data.text,
 				datetime: new Date()
 			});
-			
-			console.log(data);
 		});
 	}
 
@@ -105,7 +119,13 @@ class MainPage extends Component {
 		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
 		dconn.on('open', () => {
 			dconn.send(data);
-			console.log('sendData', this.props.conn.peerConn);
+			this.props.historyActions.addConversationToHistory({
+				with: this.props.conn.recipientName,
+				type: data.type,
+				from: this.props.user.name,
+				text: data.text,
+				datetime: new Date()
+			});
 		});
 	}
 

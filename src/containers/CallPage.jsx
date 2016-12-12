@@ -10,6 +10,8 @@ import * as historyActions from '../actions/historyActions'
 
 import CallComponent from '../components/Call/CallComponent'
 
+import { stopStream } from '../util'
+
 class CallPage extends Component {
 
 	constructor(props) {
@@ -18,16 +20,30 @@ class CallPage extends Component {
 		this.logMsg = this.props.logActions.addLog;
 	}
 
-	stopStream = (stream) => {
-		for (let track of stream.getTracks()) { 
-			track.stop()
-		}
+	sendData = (data) => {
+		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
+		dconn.on('open', () => {
+			dconn.send(data);
+			// this.props.historyActions.addConversationToHistory({
+			// 	with: conn.peer,
+			// 	type: data.type,
+			// 	from: conn.peer,
+			// 	text: data.text,
+			// 	datetime: new Date()
+			// });
+		});
 	}
 
 	endCall = () => {
 		this.logMsg('End call');
 		browserHistory.goBack();
-		this.stopStream(this.props.conn.localStream);
+		stopStream(this.props.conn.localStream);
+		this.sendData(
+			{
+				type: 'call',
+				text: 'end-call'
+			}
+		);
 	}
 
 	render() {

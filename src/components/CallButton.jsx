@@ -12,7 +12,12 @@ export default class CallButton extends Component {
 
 	handleButtonClick = () => {
 		this.startMediaStream();
-		this.props.sendData('lets-start');
+		this.props.sendData(
+			{
+				type: 'call',
+				text: 'initialize-call'
+			}
+		);
 		browserHistory.push('/main/call');
 	}
 

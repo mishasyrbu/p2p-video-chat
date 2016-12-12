@@ -34,6 +34,7 @@ render(
           <IndexRoute component={LogInPage}></IndexRoute>
           <Route path="incoming_call" component={IncomingCallPage}></Route>
           <Route path="call" component={CallPage}></Route>
+          <Route path="text_chat" component={TextChatPage}></Route>
           <Route path="login" component={LogInPage}></Route>
           <Route path="main" component={MainPage}>
             <Route path="users_list" component={UsersListPage}></Route>

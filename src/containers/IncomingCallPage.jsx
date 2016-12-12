@@ -3,14 +3,11 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
-import { IconButton } from 'material-ui'
-import CallEnd from 'material-ui/svg-icons/communication/call-end'
-import Call from 'material-ui/svg-icons/communication/call'
+import * as userActions from '../actions/UserActions'
+import * as logActions from '../actions/LogActions'
+import * as connActions from '../actions/ConnActions'
 
-import * as userActions from '../actions/UserActions';
-import * as logActions from '../actions/LogActions';
-import * as connActions from '../actions/ConnActions';
-import * as historyActions from '../actions/historyActions';
+import IncomingCallComponent from '../components/IncomingCall/IncomingCallComponent'
 
 class IncomingCallPage extends Component {
 
@@ -24,7 +21,6 @@ class IncomingCallPage extends Component {
 		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
 		dconn.on('open', () => {
 			dconn.send(data);
-			console.log('sendData', this.props.conn.peerConn);
 		});
 	}
 
@@ -49,96 +45,36 @@ class IncomingCallPage extends Component {
 
 	answerCall = () => {
 		this.startMediaStream();
-		this.sendData('ok');
+		this.sendData(
+			{
+				type: 'call',
+				text: 'answer'
+			}
+		);
 		this.props.connActions.answerForIncomingCall(true);
 		console.log(browserHistory)
 		browserHistory.push('/main/call');
 	}
 
 	rejectCall = () => {
-		this.props.connActions.answerForIncomingCall(true);
+		this.sendData(
+			{
+				type: 'call',
+				text: 'reject'
+			}
+		);
+		this.props.connActions.answerForIncomingCall(false);
 		browserHistory.goBack();
 	}
 
 	render() {
-		const { user, conn, history } = this.props;
 
 		return (
-			<div style={{position: 'fixed', width: '100%', height: '100%'}}>
-				<video 
-					src={conn.myVideoSrc} 
-					autoPlay
-					style={{
-						height: '100%',
-						width: 'auto',
-						top: '50%',
-						position: 'absolute',
-						left: '50%',
-						transform: 'translate(-50%,-50%)'
-					}}
-					>
-				</video>
-				<div style={{
-					position: 'absolute', 
-					width: '100%', 
-					height: '30%',
-					position: 'absolute',
-					bottom: 0
-				}}>
-					<IconButton
-						onClick={this.answerCall}
-						iconStyle={{
-							color: 'white'
-						}}
-						style={{
-							textAlign: 'center', 
-							width: '40%',
-							height: '30%',
-							opacity: 0.6,
-						    backgroundColor: 'green',
-						    float: 'left',
-						    marginLeft: '5%',
-						    borderRadius: '25px'
-						}}
-						>
-						<Call />
-					</IconButton>
-					<IconButton
-						onClick={this.rejectCall}
-						iconStyle={{
-							color: 'white'
-						}}
-						style={{
-							textAlign: 'center', 
-							width: '40%',
-							height: '30%',
-							opacity: 0.6,
-						    backgroundColor: 'red',
-						    float: 'right',
-						    marginRight: '5%',
-						    borderRadius: '25px'
-						}}
-						>
-						<CallEnd />
-					</IconButton>
-				</div>
-				<div
-					style={{
-						textAlign: 'center', 
-						position: 'fixed', 
-						width: '100%',
-						height: '15%',
-						top: 0,
-						opacity: 0.2,
-					    backgroundColor: '#050505',
-					    color: 'white',
-					    fontSize: '200%',
-					    fontFamily: 'sans-serif'
-					}}
-					>
-					<p>{conn.recipientName}</p>
-				</div>
-			</div>
+			<IncomingCallComponent 
+				conn={this.props.conn}
+				answerCall={this.answerCall}
+				rejectCall={this.rejectCall}
+				/>
 		);
 	}
 }
@@ -156,8 +92,7 @@ function mapDispatchProps(dispatch) {
 	return {
 		userActions: bindActionCreators(userActions, dispatch),
 		logActions: bindActionCreators(logActions, dispatch),
-		connActions: bindActionCreators(connActions, dispatch),
-		historyActions: bindActionCreators(historyActions, dispatch)
+		connActions: bindActionCreators(connActions, dispatch)
 	}
 }
 
