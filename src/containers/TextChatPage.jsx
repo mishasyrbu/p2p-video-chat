@@ -9,25 +9,14 @@ import * as connActions from '../actions/ConnActions'
 import * as historyActions from '../actions/historyActions'
 
 import TextChatComponent from '../components/TextChat/TextChatComponent'
+import { sendData } from '../util'
 
 class TextChatPage extends Component {
 
 	constructor(props) {
 		super(props);
-	}
 
-	sendData = (data) => {
-		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
-		dconn.on('open', () => {
-			dconn.send(data);
-			this.props.historyActions.addConversationToHistory({
-				with: this.props.conn.recipientName,
-				type: data.type,
-				from: this.props.user.name,
-				text: data.text,
-				datetime: new Date()
-			});
-		});
+		this.sendData = sendData.bind(this);
 	}
 
 	render() {

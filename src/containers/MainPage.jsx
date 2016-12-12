@@ -8,7 +8,7 @@ import * as logActions from '../actions/LogActions'
 import * as connActions from '../actions/ConnActions'
 import * as historyActions from '../actions/historyActions'
 
-import { stopStream } from '../util'
+import { stopStream, sendData } from '../util'
 
 class MainPage extends Component {
 
@@ -16,6 +16,7 @@ class MainPage extends Component {
 		super(props);
 
 		this.logMsg = this.props.logActions.addLog;
+		this.sendData = sendData.bind(this);
 
 		this.props.conn.peerConn.on('open', this.peerOnOpen);
 		this.props.conn.peerConn.on('close', this.peerOnClose);
@@ -113,20 +114,6 @@ class MainPage extends Component {
 		});
 
 		this.logMsg('outgoing call initiated to ' + this.props.conn.recipientName);
-	}
-
-	sendData = (data) => {
-		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
-		dconn.on('open', () => {
-			dconn.send(data);
-			this.props.historyActions.addConversationToHistory({
-				with: this.props.conn.recipientName,
-				type: data.type,
-				from: this.props.user.name,
-				text: data.text,
-				datetime: new Date()
-			});
-		});
 	}
 
 	render() {

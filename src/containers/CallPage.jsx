@@ -10,7 +10,7 @@ import * as historyActions from '../actions/historyActions'
 
 import CallComponent from '../components/Call/CallComponent'
 
-import { stopStream } from '../util'
+import { stopStream, sendData } from '../util'
 
 class CallPage extends Component {
 
@@ -18,20 +18,7 @@ class CallPage extends Component {
 		super(props);
 
 		this.logMsg = this.props.logActions.addLog;
-	}
-
-	sendData = (data) => {
-		let dconn = this.props.conn.peerConn.connect(this.props.conn.recipientName);
-		dconn.on('open', () => {
-			dconn.send(data);
-			// this.props.historyActions.addConversationToHistory({
-			// 	with: conn.peer,
-			// 	type: data.type,
-			// 	from: conn.peer,
-			// 	text: data.text,
-			// 	datetime: new Date()
-			// });
-		});
+		this.sendData = sendData.bind(this);
 	}
 
 	endCall = () => {
