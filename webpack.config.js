@@ -4,9 +4,20 @@ var path = require('path');
 var loaders = require('./webpack.loaders');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var CordovaPlugin = require('webpack-cordova-plugin');
+const autoprefixer = require('autoprefixer');
 
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8888";
+const AUTOPREFIXER_BROWSERS = [
+    'Android 2.3',
+    'Android >= 4',
+    'Chrome >= 35',
+    'Firefox >= 31',
+    'Explorer >= 9',
+    'iOS >= 7',
+    'Opera >= 12',
+    'Safari >= 7.1',
+];
 
 // global css
 loaders.push({
@@ -80,5 +91,10 @@ module.exports = {
 			platform: 'android',	 // Set `webpack-dev-server` to correct `contentBase` to use Cordova plugins.
 			version: true,         // Set config.xml' version. (true = use version from package.json)
 		})
-	]
+	],
+    postcss: [
+        autoprefixer({
+            browsers: AUTOPREFIXER_BROWSERS
+        })
+    ]
 };
